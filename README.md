@@ -1,64 +1,86 @@
-# Misskey Theme Editor
+# 🎨 Misskey Theme Editor
 
-🎨 一个可视化的 Misskey 主题编辑器，支持实时调整颜色、深浅模式切换，并导出符合 Misskey 格式的主题配置。
+基于 Misskey 主题系统的独立可视化主题编辑器，支持实时预览。
 
-## ✨ 功能特性
+## 功能
 
-- **实时颜色编辑**：左侧面板列出所有主题变量（含中文注释），可自由调整基础颜色，所有派生变量（如 `lighten`, `alpha`, `hue`）自动重新计算。
-- **深浅模式一键切换**：内置深色/浅色两套预设，切换后所有颜色重新生成，方便对比。
-- **流畅调色体验**：颜色选择器支持拖拽实时预览，面板不会消失，焦点不丢失。
-- **导出配置**：点击按钮即可生成符合 Misskey 原生格式的主题配置文件（键值对形式），可直接复制使用。
-- **复制颜色值**：点击色块可快速复制当前颜色值。
-- **完全客户端运行**：纯 HTML/JavaScript，无需后端，可直接在浏览器中运行。
+- **可视化编辑** — 57 个标准主题属性按分组展示，支持颜色选择器与文本输入
+- **实时预览** — 模拟 Misskey UI（侧边栏、顶栏、帖子卡片、按钮、开关、输入框等）
+- **亮/暗切换** — 一键切换基础主题，自动适配默认值
+- **预设主题** — 内置 10 个预设（默认亮/暗、咖啡、鲜艳、植物绿、樱花粉、星空、未来、冰蓝、柿子）
+- **JSON5 导入/导出** — 兼容 Misskey 主题格式，支持文件导出
+- **一键复制** — 生成仅包含差异属性的精简代码
+- **属性重置** — 每个属性可一键恢复为基础主题值
 
-## 📦 使用方法
+## 快速开始
 
-### 1. 本地运行
-**Linux系统** 克隆本仓库：
 ```bash
-git clone https://github.com/your-username/misskey-theme-editor.git
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 构建生产版本
+npm run build
 ```
-**Windows系统** 浏览器下载misskey-theme-editor.html
 
-然后用浏览器打开 `misskey-theme-editor.html` 即可。
+启动后访问 `http://localhost:5173`。
 
-### 2. 在线DEMO
-**本站DEMO：** https://mktheme-editor.captraw.com
+## Misskey 主题格式
 
-**若页面显示异常请换用更新的浏览器**
+主题为 JSON5 文件，结构如下：
 
-## 🔧 主要功能
-- 左侧面板列出了所有 Misskey 主题变量，带有中文注释。
-- **基础颜色**（如 `accent`, `bg`, `fg`）右侧带有颜色选择器，可随意调整。
-- **派生颜色**（如 `panel`, `buttonBg`）会自动跟随基础色变化，不可直接编辑。
-- 点击上方“深色/浅色”按钮可切换整体风格。
-- 调整完成后，点击底部“📤 导出当前配置”即可复制生成的配置代码。
+```json5
+{
+  id: "uuid",
+  name: "My Theme",
+  author: "@me",
+  base: "light",   // "light" 或 "dark"，决定继承的基础主题
+  props: {
+    accent: "#e36749",           // 字面颜色
+    bg: "#fff",
+    panel: ":lighten<3<@bg",    // 函数调用：lighten 3% 的 bg 值
+    accentedBg: ":alpha<0.15<@accent", // alpha 15% 的 accent
+    fg: "@fg",                   // 引用其他属性
+    panelBorder: '" solid 1px var(--MI_THEME-divider)', // 原始 CSS
+    $myConst: "#ff0",            // $ 开头为常量（不输出 CSS）
+  }
+}
+```
 
-## 🧠 主题配置说明
+### 值类型
 
-编辑器完全兼容 Misskey 的主题格式，支持以下函数：
-- `:lighten<amount<@color` — 提高亮度
-- `:alpha<amount<@color` — 调整透明度
-- `:hue<degrees<@color` — 色相偏移
+| 前缀 | 类型 | 示例 |
+|---|---|---|
+| `#` / `rgb()` | 字面颜色 | `#86b300` |
+| `@` | 属性引用 | `@accent` |
+| `$` | 常量引用 | `$myConst` |
+| `:<func>` | 函数调用 | `:darken<3<@bg` |
+| `"` | 原始 CSS | `" solid 1px ...` |
 
-所有变量间相互引用，最终会计算出具体的颜色值（HEX 或 RGBA）。
+### 颜色函数
 
-## 🛠️ 技术栈
+可链式调用，如 `:saturate<30<:hue<30<@accent`：
 
-- 原生 HTML / CSS / JavaScript（无任何依赖）
-- CSS 变量实现主题动态更新
-- 颜色转换与解析逻辑纯手工实现
+| 函数 | 说明 | 示例 |
+|---|---|---|
+| `darken` | 加深 | `:darken<10<@bg` |
+| `lighten` | 减淡 | `:lighten<3<@panel` |
+| `alpha` | 设置透明度 | `:alpha<0.5<@accent` |
+| `hue` | 色相旋转 | `:hue<20<@accent` |
+| `saturate` | 饱和度 | `:saturate<30<@fg` |
 
-## 🤝 贡献指南
+## 技术栈
 
-欢迎提交 Issue 或 Pull Request！如果你有好的想法或发现了 Bug，请随时提出。
+- **TypeScript** + **Vite**
+- **tinycolor2** — 颜色解析与变换
+- **json5** — 主题文件解析
 
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交修改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开一个 Pull Request
+## 致谢
 
-## 📄 许可证
+主题引擎移植自 [Misskey](https://github.com/misskey-dev/misskey) 的 `packages/frontend-shared/js/theme.ts`。
 
-本项目基于 Apache 2.0 许可证开源。
+## License
+
+MIT
