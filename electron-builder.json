@@ -11,15 +11,12 @@
     "assects/**/*"
   ],
   "win": {
-    "target": ["portable"],
-    "icon": "assects/icon.svg"
+    "target": ["portable"]
   },
   "mac": {
-    "target": ["dmg", "zip"],
-    "icon": "assects/icon.svg"
+    "target": ["dmg", "zip"]
   },
   "linux": {
-    "target": ["AppImage", "deb"],
-    "icon": "assects/icon.svg"
+    "target": ["AppImage", "deb"]
   }
 }

@@ -6,7 +6,7 @@ import {
   type CompiledTheme,
   compile, compileValue,
 } from './theme-engine';
-import { getMergedTheme, currentTheme } from './state';
+import { getMergedTheme } from './state';
 import tinycolor from 'tinycolor2';
 
 // ─── Theme Helpers ───────────────────────────────────────
@@ -34,10 +34,4 @@ export function toPickerColor(propKey: string): string {
   const tc = tinycolor(resolved);
   if (!tc.isValid()) return '#000000';
   return tc.toHexString();
-}
-
-/** 判断颜色是否为"透明"值（包含 alpha） */
-export function hasAlpha(propKey: string): boolean {
-  const val = currentTheme.props[propKey] ?? '';
-  return val.includes('alpha') || val.includes('rgba');
 }

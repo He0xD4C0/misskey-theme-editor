@@ -17,7 +17,6 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
     },
-    icon: path.join(__dirname, 'assects/icon.svg'),
     title: 'Misskey Theme Editor',
   });
 
