@@ -1,0 +1,25 @@
+{
+  "appId": "com.misskey.theme-editor",
+  "productName": "Misskey Theme Editor",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "electron-main.js",
+    "package.json",
+    "assects/**/*"
+  ],
+  "win": {
+    "target": ["portable"],
+    "icon": "assects/icon.svg"
+  },
+  "mac": {
+    "target": ["dmg", "zip"],
+    "icon": "assects/icon.svg"
+  },
+  "linux": {
+    "target": ["AppImage", "deb"],
+    "icon": "assects/icon.svg"
+  }
+}

@@ -3,6 +3,7 @@ node_modules/
 
 # Build output
 dist/
+release/
 
 # IDE
 .vscode/
@@ -24,3 +25,11 @@ npm-debug.log*
 .env
 .env.*
 !.env.example
+
+# Electron
+*.dmg
+*.AppImage
+*.exe
+*.deb
+*.rpm
+*.snap

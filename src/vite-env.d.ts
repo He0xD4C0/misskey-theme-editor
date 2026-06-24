@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare module 'json5' {
   const JSON5: {
     parse(text: string, reviver?: (key: string, value: any) => any): any;

@@ -21,11 +21,118 @@ npm install
 # 启动开发服务器
 npm run dev
 
-# 构建生产版本
-npm run build
+# 或构建生产版本
+# npm run build
 ```
 
 启动后访问 `http://localhost:5173`。
+
+## 打包为桌面应用
+
+本项目支持打包为 Windows、macOS 和 Linux 桌面应用。
+
+### 安装依赖
+
+```bash
+npm install
+
+# 开发模式运行 Electron
+npm run electron:dev
+```
+
+这会同时启动 Vite 开发服务器和 Electron 应用。
+
+### 打包应用
+
+
+```bash
+# Windows (.exe)
+npm run electron:build:win
+
+# macOS (.dmg)
+npm run electron:build:mac
+
+# Linux (.AppImage)
+npm run electron:build:linux
+```
+或
+```bash
+# 打包所有平台
+npm run electron:build
+```
+
+打包完成后，应用文件会在 `release/` 目录中生成。
+
+### 项目结构
+
+```
+misskey-theme-editor/
+├── index.html              # 入口 HTML
+├── assects/
+│   ├── icon.svg            # 应用图标
+│   └── theme/              # 主题资源
+├── package.json
+├── tsconfig.json           # TypeScript 配置
+├── vite.config.ts          # Vite 构建配置
+├── electron-main.ts        # Electron 主进程
+├── electron-builder.json   # electron-builder 打包配置
+├── src/
+│   ├── main.ts             # 应用入口
+│   ├── theme-engine.ts     # 主题解析与渲染引擎
+│   ├── state.ts            # 应用状态管理
+│   ├── io.ts               # 主题文件导入/导出
+│   ├── events.ts           # 事件监听与处理
+│   ├── helpers.ts          # 通用工具函数
+│   ├── ui-utils.ts         # UI 辅助函数
+│   ├── style.css           # 全局样式
+│   ├── vite-env.d.ts       # Vite 类型声明
+│   └── components/
+│       ├── top-bar.ts      # 顶部工具栏
+│       ├── preview.ts      # Misskey UI 实时预览
+│       ├── property-editor.ts # 属性编辑面板
+│       ├── code-panel.ts   # 主题代码面板
+│       ├── preset-menu.ts  # 预设主题选择菜单
+│       └── theme-info.ts   # 主题元信息编辑
+├── dist/                   # 构建输出（生成）
+└── release/                # 打包后的应用（生成）
+```
+
+### 理论支持平台
+
+- ✅ Windows 10/11
+- ✅ macOS 10.15+
+- ✅ Ubuntu 18.04+
+- ✅ Debian 10+
+- ✅ Fedora 32+
+
+## 打包配置详解
+
+### electron-builder.json 主要配置
+
+- **appId**: 应用唯一标识
+- **productName**: 应用显示名称
+- **win.target**: Windows 打包格式
+  - `portable`: 便携版（无需安装）
+- **mac.target**: macOS 打包格式
+  - `dmg`: 磁盘映像
+  - `zip`: 压缩包
+- **linux.target**: Linux 打包格式
+  - `AppImage`: 通用格式
+  - `deb`: Debian/Ubuntu 包
+
+## 常见问题
+
+### Q: 打包后应用无法启动？
+A: 检查以下几点：
+1. 确保 `dist/index.html` 存在（运行 `npm run build`）
+2. 检查控制台错误信息
+3. 确认 `base: './'` 在 `vite.config.ts` 中
+
+### Q: 如何减小应用体积？
+A: 
+1. 使用 `asar: true`（默认启用）
+2. 优化图片资源
+3. 移除不必要的依赖
 
 ## Misskey 主题格式
 
@@ -81,6 +188,13 @@ npm run build
 
 主题引擎移植自 [Misskey](https://github.com/misskey-dev/misskey) 的 `packages/frontend-shared/js/theme.ts`。
 
+## 相关文档
+
+- [Electron 官方文档](https://www.electronjs.org/)
+- [electron-builder 文档](https://www.electron.build/)
+- [Vite 官方文档](https://vitejs.dev/)
+- [Misskey](https://github.com/misskey-dev/misskey)
+
 ## License
 
-MIT
+AGPL-3.0

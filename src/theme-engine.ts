@@ -281,24 +281,24 @@ export function genId(): string {
 // ─── 基础主题定义 ───────────────────────────────────────
 
 export const LIGHT_BASE: Theme = {
-  id: 'light',
-  name: 'Light',
+  id: '642d1acc-6a76-4903-b56f-48bbcb606038',
+  name: 'Mi Light',
   author: 'syuilo',
   desc: 'Default light theme',
-  kind: 'light',
+  base: 'light',
   props: {
     accent: '#86b300',
     accentedBg: ':alpha<0.15<@accent',
     love: '#dd2e44',
     focus: ':alpha<0.3<@accent',
-    bg: '#fff',
-    fg: '#5f5f5f',
+    bg: '#f9f9f9',
+    fg: '#676767',
     fgHighlighted: ':darken<3<@fg',
     fgOnAccent: '#fff',
-    fgOnWhite: '#333',
-    divider: 'rgba(0, 0, 0, 0.1)',
+    fgOnWhite: '@accent',
+    divider: '#e8e8e8',
     indicator: '@accent',
-    panel: ':lighten<3<@bg',
+    panel: '#fff',
     panelHighlight: ':darken<3<@panel',
     panelHeaderBg: ':lighten<3<@panel',
     panelHeaderFg: '@fg',
@@ -307,7 +307,7 @@ export const LIGHT_BASE: Theme = {
     popup: ':lighten<3<@panel',
     shadow: 'rgba(0, 0, 0, 0.1)',
     header: ':alpha<0.7<@panel',
-    navBg: '@panel',
+    navBg: '#fff',
     navFg: '@fg',
     navActive: '@accent',
     navIndicator: '@indicator',
@@ -316,7 +316,7 @@ export const LIGHT_BASE: Theme = {
     link: '#44a4c1',
     hashtag: '#ff9156',
     mention: '@accent',
-    mentionMe: '@mention',
+    mentionMe: 'rgb(0, 179, 70)',
     renote: '#229e82',
     modalBg: 'rgba(0, 0, 0, 0.3)',
     scrollbarHandle: 'rgba(0, 0, 0, 0.2)',
@@ -341,7 +341,7 @@ export const LIGHT_BASE: Theme = {
     inputBorderHover: 'rgba(0, 0, 0, 0.2)',
     badge: '#31b1ce',
     messageBg: '@bg',
-    success: '#86b300',
+    success: '@accent',
     error: '#ec4137',
     warn: '#ecb637',
     codeString: '#b98710',
@@ -353,24 +353,24 @@ export const LIGHT_BASE: Theme = {
 };
 
 export const DARK_BASE: Theme = {
-  id: 'dark',
-  name: 'Dark',
+  id: '8050783a-7f63-445a-b270-36d0f6ba1677',
+  name: 'Mi Dark',
   author: 'syuilo',
   desc: 'Default dark theme',
-  kind: 'dark',
+  base: 'dark',
   props: {
     accent: '#86b300',
     accentedBg: ':alpha<0.15<@accent',
     love: '#dd2e44',
     focus: ':alpha<0.3<@accent',
-    bg: '#000',
-    fg: '#dadada',
-    fgHighlighted: ':lighten<3<@fg',
+    bg: '#232323',
+    fg: 'rgb(199, 209, 216)',
+    fgHighlighted: '#fff',
     fgOnAccent: '#fff',
-    fgOnWhite: '#333',
-    divider: 'rgba(255, 255, 255, 0.1)',
+    fgOnWhite: '@accent',
+    divider: 'rgba(255, 255, 255, 0.14)',
     indicator: '@accent',
-    panel: ':lighten<3<@bg',
+    panel: '#2d2d2d',
     panelHighlight: ':lighten<3<@panel',
     panelHeaderBg: ':lighten<3<@panel',
     panelHeaderFg: '@fg',
@@ -379,17 +379,17 @@ export const DARK_BASE: Theme = {
     popup: ':lighten<3<@panel',
     shadow: 'rgba(0, 0, 0, 0.3)',
     header: ':alpha<0.7<@panel',
-    navBg: '@panel',
+    navBg: '#363636',
     navFg: '@fg',
     navActive: '@accent',
     navIndicator: '@indicator',
     pageHeaderBg: '@bg',
     pageHeaderFg: '@fg',
-    link: '#44a4c1',
-    hashtag: '#ff9156',
-    mention: '@accent',
-    mentionMe: '@mention',
-    renote: '#229e82',
+    link: '@accent',
+    hashtag: '#4cb8d4',
+    mention: '#da6d35',
+    mentionMe: '#d44c4c',
+    renote: '@accent',
     modalBg: 'rgba(0, 0, 0, 0.5)',
     scrollbarHandle: 'rgba(255, 255, 255, 0.2)',
     scrollbarHandleHover: 'rgba(255, 255, 255, 0.4)',
@@ -413,7 +413,7 @@ export const DARK_BASE: Theme = {
     inputBorderHover: 'rgba(255, 255, 255, 0.2)',
     badge: '#31b1ce',
     messageBg: '@bg',
-    success: '#86b300',
+    success: '@accent',
     error: '#ec4137',
     warn: '#ecb637',
     codeString: '#ffb675',
@@ -424,63 +424,4 @@ export const DARK_BASE: Theme = {
   },
 };
 
-// ─── 预设主题 ───────────────────────────────────────────
-
-export interface PresetTheme {
-  name: string;
-  nameZh: string;
-  theme: Partial<Theme>;
-}
-
-export const presetThemes: PresetTheme[] = [
-  {
-    name: 'Default Light',
-    nameZh: '默认亮色',
-    theme: { base: 'light', props: { accent: '#86b300', bg: '#fff', fg: '#5f5f5f' } },
-  },
-  {
-    name: 'Default Dark',
-    nameZh: '默认暗色',
-    theme: { base: 'dark', props: { accent: '#86b300', bg: '#000', fg: '#dadada' } },
-  },
-  {
-    name: 'Coffee Light',
-    nameZh: '咖啡亮色',
-    theme: { base: 'light', props: { accent: '#9f8989', bg: '#f5f3f3', fg: '#7f6666' } },
-  },
-  {
-    name: 'Vivid Light',
-    nameZh: '鲜艳亮色',
-    theme: { base: 'light', props: { accent: '#e36749', bg: '#fff', fg: '#555' } },
-  },
-  {
-    name: 'Botanical',
-    nameZh: '植物绿',
-    theme: { base: 'light', props: { accent: '#5faa5f', bg: '#f0f5ee', fg: '#586d5b' } },
-  },
-  {
-    name: 'Cherry',
-    nameZh: '樱花粉',
-    theme: { base: 'light', props: { accent: '#e84d83', bg: '#faf0f3', fg: '#84667d' } },
-  },
-  {
-    name: 'Astro Dark',
-    nameZh: '星空暗色',
-    theme: { base: 'dark', props: { accent: '#606df7', bg: '#1a1b2e', fg: '#d1d2e4' } },
-  },
-  {
-    name: 'Future Dark',
-    nameZh: '未来暗色',
-    theme: { base: 'dark', props: { accent: '#34c9a9', bg: '#1a2525', fg: '#d1e4e4' } },
-  },
-  {
-    name: 'Ice Dark',
-    nameZh: '冰蓝暗色',
-    theme: { base: 'dark', props: { accent: '#34a1c9', bg: '#192330', fg: '#c0d5e4' } },
-  },
-  {
-    name: 'Persimmon Dark',
-    nameZh: '柿子暗色',
-    theme: { base: 'dark', props: { accent: '#e36749', bg: '#231a17', fg: '#e4d1c0' } },
-  },
-];
+// ─── 预设主题已移除，改为从 assects/theme/ 加载 ─────────
